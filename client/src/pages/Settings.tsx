@@ -6,14 +6,20 @@ import BottomNav from "@/components/BottomNav";
 import ThemeToggle from "@/components/ThemeToggle";
 import { Bell, MapPin, Smartphone, LogOut } from "lucide-react";
 import { useState } from "react";
+import { authStorage } from "@/lib/auth";
+import { useLocation } from "wouter";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Settings() {
   const [notifications, setNotifications] = useState(true);
   const [locationSharing, setLocationSharing] = useState(true);
+  const [, setLocation] = useLocation();
+  const { toast } = useToast();
 
   const handleLogout = () => {
-    console.log('Logout triggered');
-    // TODO: Implement actual logout
+    authStorage.clearAuth();
+    toast({ title: "Logged out", description: "You have been signed out." });
+    setLocation('/auth');
   };
 
   return (
