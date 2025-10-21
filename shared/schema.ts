@@ -1,12 +1,29 @@
 import mongoose, { Document, Schema, Model } from 'mongoose';
 
 // Interface for TypeScript type safety
+export interface IMedicalReport {
+  title: string;
+  url: string;
+  uploadedAt: Date;
+  uploadedBy: string; // Doctor's name or hospital name
+  type: string; // e.g., "Lab Report", "X-Ray", "Prescription"
+}
+
 export interface IUser extends Document {
   name: string;
   phoneNumber: string;
   password: string;
   emergencyContactName: string;
   emergencyContactPhone: string;
+  qrCodeId: string; // Unique identifier for QR code
+  height: number;
+  weight: number;
+  bmi: number;
+  bloodGroup: string;
+  allergies: string[];
+  chronicConditions: string[];
+  currentMedications: string[];
+  medicalReports: IMedicalReport[];
 }
 
 // Mongoose Schema
@@ -16,6 +33,21 @@ const userSchema = new Schema<IUser>({
   password: { type: String, required: true },
   emergencyContactName: { type: String, required: true },
   emergencyContactPhone: { type: String, required: true },
+  qrCodeId: { type: String, required: true, unique: true },
+  height: { type: Number },
+  weight: { type: Number },
+  bmi: { type: Number },
+  bloodGroup: { type: String },
+  allergies: [{ type: String }],
+  chronicConditions: [{ type: String }],
+  currentMedications: [{ type: String }],
+  medicalReports: [{
+    title: { type: String, required: true },
+    url: { type: String, required: true },
+    uploadedAt: { type: Date, default: Date.now },
+    uploadedBy: { type: String, required: true },
+    type: { type: String, required: true }
+  }]
 }, { timestamps: true }); // timestamps adds createdAt and updatedAt automatically
 
 // Mongoose Model
