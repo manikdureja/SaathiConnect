@@ -1,4 +1,4 @@
-import { Home, Users, User, Settings } from "lucide-react";
+import { Home, Users, User, Settings, QrCode, ScanLine } from "lucide-react";
 import { Link, useLocation } from "wouter";
 
 interface NavItem {
@@ -14,6 +14,8 @@ export default function BottomNav() {
     { icon: <Home className="h-8 w-8" />, label: "Home", path: "/" },
     { icon: <Users className="h-8 w-8" />, label: "Community", path: "/community" },
     { icon: <User className="h-8 w-8" />, label: "Profile", path: "/profile" },
+    { icon: <ScanLine className="h-8 w-8" />, label: "Scan QR", path: "/scan" },
+    { icon: <QrCode className="h-8 w-8" />, label: "My QR", path: "/my-qrcode" },
     { icon: <Settings className="h-8 w-8" />, label: "Settings", path: "/settings" },
   ];
 

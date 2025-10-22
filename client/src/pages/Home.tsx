@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "wouter";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "wouter";
 import SOSButton from "@/components/SOSButton";
 import EmergencyContact from "@/components/EmergencyContact";
 import LocationStatus from "@/components/LocationStatus";
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { MessageCircle, Stethoscope, Building2 } from "lucide-react";
+import { authStorage } from '@/lib/auth';
 
 // TODO: remove mock functionality
 const mockUser = {
@@ -21,17 +22,35 @@ const mockUser = {
 
 export default function Home() {
   const [location] = useState({ enabled: true, address: "Mumbai, Maharashtra" });
+  const [user, setUser] = useState<any>(null);
+  const [, setLocation] = useLocation();
   const { toast } = useToast();
 
   const handleSOS = () => {
     // TODO: Implement actual SOS functionality with GPS and SMS
     console.log('SOS triggered');
+    const contactName = user?.emergencyContact?.name || mockUser.emergencyContact.name;
     toast({
       title: "Emergency Alert Sent",
-      description: `Alert sent to ${mockUser.emergencyContact.name} with your location.`,
+      description: `Alert sent to ${contactName} with your location.`,
       variant: "default",
     });
   };
+
+  useEffect(() => {
+    const me = authStorage.getUserData();
+    if (!me?.id) return;
+    (async () => {
+      try {
+        const res = await fetch(`/api/user/${me.id}`);
+        if (!res.ok) throw new Error('Failed to load user');
+        const data = await res.json();
+        setUser(data);
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, []);
 
   return (
     <div className="min-h-screen bg-background pb-24">
@@ -87,9 +106,9 @@ export default function Home() {
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold">Emergency Contact</h2>
           <EmergencyContact
-            name={mockUser.emergencyContact.name}
-            phoneNumber={mockUser.emergencyContact.phoneNumber}
-            onEdit={() => console.log('Edit contact')}
+            name={user?.emergencyContact?.name || mockUser.emergencyContact.name}
+            phoneNumber={user?.emergencyContact?.phoneNumber || mockUser.emergencyContact.phoneNumber}
+            onEdit={() => window.dispatchEvent(new CustomEvent('openProfileEdit'))}
             onCall={() => console.log('Call contact')}
           />
         </div>
