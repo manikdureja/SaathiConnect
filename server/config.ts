@@ -57,7 +57,6 @@ export const config = {
   // JWT configuration
   jwt: {
     secret: JWT_SECRET || 'saathi-development-secret',
-    secret: process.env.JWT_SECRET || 'saathi-development-secret',
     expiresIn: '30d',
   },
 
