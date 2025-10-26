@@ -17,10 +17,6 @@ export default function Settings() {
   const handleLogout = () => {
     authStorage.clearAuth();  // Clear the stored token and user data
     setLocation('/auth');     // Redirect to login page
-
-  const handleLogout = () => {
-    console.log('Logout triggered');
-    // TODO: Implement actual logout
   };
 
   return (
