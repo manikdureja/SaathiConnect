@@ -1,8 +1,11 @@
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+<<<<<<< HEAD
 import fs from 'fs';
 import crypto from 'crypto';
+=======
+>>>>>>> e928a868f20db69a2347c48ab1b1261ec9fbadf7
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -10,6 +13,7 @@ const __dirname = dirname(__filename);
 // Load environment variables from .env file
 dotenv.config({ path: join(__dirname, '../.env') });
 
+<<<<<<< HEAD
 // Persisted JWT secret file (keeps tokens valid across restarts/changes)
 const SECRET_FILE = join(__dirname, '../.jwt_secret');
 
@@ -42,6 +46,8 @@ try {
   JWT_SECRET = JWT_SECRET || process.env.JWT_SECRET || 'saathi-development-secret';
 }
 
+=======
+>>>>>>> e928a868f20db69a2347c48ab1b1261ec9fbadf7
 export const config = {
   // Server configuration
   port: process.env.PORT || 5000,
@@ -59,7 +65,11 @@ export const config = {
   
   // JWT configuration
   jwt: {
+<<<<<<< HEAD
     secret: JWT_SECRET || 'saathi-development-secret',
+=======
+    secret: process.env.JWT_SECRET || 'saathi-development-secret',
+>>>>>>> e928a868f20db69a2347c48ab1b1261ec9fbadf7
     expiresIn: '30d',
   },
 

@@ -223,12 +223,20 @@ export default function Profile() {
           {/* Edit modal */}
           <Dialog open={open} onOpenChange={(v) => { setOpen(v); if (!v) setEditing(false); }}>
             <DialogContent>
+<<<<<<< HEAD
                 <DialogHeader>
                   <DialogTitle>Edit Profile</DialogTitle>
                   <DialogDescription>Update your profile information</DialogDescription>
                 </DialogHeader>
                 {/* Modal body: scrollable area */}
                 <div className="overflow-auto max-h-[60vh] px-1 py-2 space-y-4 animate-fade-in">
+=======
+              <DialogHeader>
+                <DialogTitle>Edit Profile</DialogTitle>
+                <DialogDescription>Update your profile information</DialogDescription>
+              </DialogHeader>
+              <div className="space-y-2">
+>>>>>>> e928a868f20db69a2347c48ab1b1261ec9fbadf7
                 <input name="name" value={form.name} onChange={handleChange} className="w-full p-2 border rounded" placeholder="Name" />
                 <div>
                   <label className="block text-sm font-medium mb-1">Upload Photo</label>
@@ -267,6 +275,7 @@ export default function Profile() {
                   <label className="block text-sm font-medium mb-1">Current Medications / None</label>
                   <textarea name="currentMedicationsText" value={form.currentMedicationsText} onChange={handleChange} className="w-full p-2 border rounded" rows={3} placeholder="List current medications, one per line" />
                 </div>
+<<<<<<< HEAD
               </div>
               {/* Sticky footer with actions */}
               <div className="mt-3 pt-3 border-t sticky bottom-0 bg-gradient-to-t from-background/80 to-transparent backdrop-blur-sm flex gap-2 justify-end p-3">
@@ -274,6 +283,12 @@ export default function Profile() {
                 <Button variant="outline" onClick={() => { setEditing(false); setOpen(false); }} className="border">
                   Cancel
                 </Button>
+=======
+                <div className="flex gap-2">
+                  <Button onClick={save}>Save</Button>
+                  <Button variant="outline" onClick={() => { setEditing(false); setOpen(false); }}>Cancel</Button>
+                </div>
+>>>>>>> e928a868f20db69a2347c48ab1b1261ec9fbadf7
               </div>
             </DialogContent>
           </Dialog>

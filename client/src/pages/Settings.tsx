@@ -6,17 +6,27 @@ import BottomNav from "@/components/BottomNav";
 import ThemeToggle from "@/components/ThemeToggle";
 import { Bell, MapPin, Smartphone, LogOut } from "lucide-react";
 import { useState } from "react";
+<<<<<<< HEAD
 import { useLocation } from 'wouter';
 import { authStorage } from '@/lib/auth';
+=======
+>>>>>>> e928a868f20db69a2347c48ab1b1261ec9fbadf7
 
 export default function Settings() {
   const [notifications, setNotifications] = useState(true);
   const [locationSharing, setLocationSharing] = useState(true);
+<<<<<<< HEAD
   const [, setLocation] = useLocation();
 
   const handleLogout = () => {
     authStorage.clearAuth();  // Clear the stored token and user data
     setLocation('/auth');     // Redirect to login page
+=======
+
+  const handleLogout = () => {
+    console.log('Logout triggered');
+    // TODO: Implement actual logout
+>>>>>>> e928a868f20db69a2347c48ab1b1261ec9fbadf7
   };
 
   return (
