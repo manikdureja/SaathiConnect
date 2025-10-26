@@ -11,12 +11,6 @@ const JWT_SECRET = config.jwt.secret;
 if (!JWT_SECRET || JWT_SECRET === 'saathi-development-secret') {
   console.warn(
     "Warning: Using a default or missing JWT secret. For production, set a secure secret in the environment or .jwt_secret file."
-
-const JWT_SECRET = process.env.JWT_SECRET || "saathislove";
-
-if (JWT_SECRET === "saathislove") {
-  console.warn(
-    "Warning: Using default JWT_SECRET. Please set a secure secret in environment variables for production."
   );
 }
 
@@ -251,7 +245,7 @@ export async function registerRoutes(app: Express) {
       const { id: authorId, name: authorName } = req.user!;
       if (!content) return res.status(400).json({ error: "Content is required" });
 
-  const post = await DB.Post.create({ content, authorId: authorId as any, authorName });
+      const post = await DB.Post.create({ content, authorId: authorId as any, authorName });
       res.status(201).json(post);
     } catch (err: any) {
       res.status(400).json({ error: err.message });
@@ -322,7 +316,7 @@ export async function registerRoutes(app: Express) {
     try {
       const { id } = req.params;
       // if multipart, photo may be in req.file; other fields in req.body
-  const { name, photoUrl: photoUrlBody, bloodGroup, emergencyContactName, emergencyContactPhone, height, weight, bmi, majorProblem, allergies, chronicConditions, currentMedications } = req.body;
+      const { name, photoUrl: photoUrlBody, bloodGroup, emergencyContactName, emergencyContactPhone, height, weight, bmi, majorProblem, allergies, chronicConditions, currentMedications } = req.body;
       let photoUrl = photoUrlBody;
       if ((req as any).file) {
         const file = (req as any).file;
@@ -377,8 +371,8 @@ export async function registerRoutes(app: Express) {
         };
       }
 
-  if (photoUrl) updatePayload.photoUrl = photoUrl;
-  const updated = await DB.User.update(id, updatePayload as any);
+      if (photoUrl) updatePayload.photoUrl = photoUrl;
+      const updated = await DB.User.update(id, updatePayload as any);
 
       res.json(updated);
     } catch (err: any) {
@@ -405,7 +399,7 @@ export async function registerRoutes(app: Express) {
     try {
       const { qrCodeId } = req.params;
       const user = await DB.User.findOne({ qrCodeId });
-      if (!user) return res.status(404).json({ message: "User not found" });
+      if (!user) return res.status(4404).json({ message: "User not found" });
 
       res.json({
         name: user.name,
@@ -432,10 +426,10 @@ export async function registerRoutes(app: Express) {
       if (!user) return res.status(404).json({ message: "User not found" });
 
       const newReport = { title, url, uploadedAt: new Date(), uploadedBy: (req.user as any)?.name || 'unknown', type: 'Report' };
-  const updatedUser = await DB.User.update(id, { medicalReports: [...(user.medicalReports || []), newReport] } as any);
+      const updatedUser = await DB.User.update(id, { medicalReports: [...(user.medicalReports || []), newReport] } as any);
 
-  if (!updatedUser) return res.status(500).json({ message: 'Failed to update user' });
-  res.json({ message: "Report added successfully", medicalReports: updatedUser.medicalReports });
+      if (!updatedUser) return res.status(500).json({ message: 'Failed to update user' });
+      res.json({ message: "Report added successfully", medicalReports: updatedUser.medicalReports });
     } catch (err) {
       res.status(500).json({ message: "Server error" });
     }
