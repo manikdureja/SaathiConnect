@@ -4,12 +4,22 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { DB } from "./dbAbstraction"; // Your DB abstraction layer
 import { authenticateToken } from "./authMiddleware"; // JWT middleware
+<<<<<<< HEAD
+import { config } from './config';
+
+const JWT_SECRET = config.jwt.secret;
+
+if (!JWT_SECRET || JWT_SECRET === 'saathi-development-secret') {
+  console.warn(
+    "Warning: Using a default or missing JWT secret. For production, set a secure secret in the environment or .jwt_secret file."
+=======
 
 const JWT_SECRET = process.env.JWT_SECRET || "saathislove";
 
 if (JWT_SECRET === "saathislove") {
   console.warn(
     "Warning: Using default JWT_SECRET. Please set a secure secret in environment variables for production."
+>>>>>>> e928a868f20db69a2347c48ab1b1261ec9fbadf7
   );
 }
 
